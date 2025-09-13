@@ -83,81 +83,81 @@ class TrapezoidalMethod(BaseMethod):
         b = b or "1"
         n = n or "10"
         
-        return f"""TRAPEZOIDAL RULE EXPLANATION
+        return f"""EXPLICACIÓN DE LA REGLA DEL TRAPECIO
 
-CURRENT INTEGRAL: ∫[{a} to {b}] {function} dx
+INTEGRAL ACTUAL: ∫[{a} a {b}] {function} dx
 
-THEORY:
+TEORÍA:
 --------
-The Trapezoidal Rule approximates the definite integral by dividing the area under the curve
-into trapezoids and summing their areas. It's based on linear interpolation between points.
+La Regla del Trapecio aproxima la integral definida dividiendo el área bajo la curva
+en trapecios y sumando sus áreas. Se basa en interpolación lineal entre puntos.
 
-FORMULA:
+FÓRMULA:
 --------
-∫[a to b] f(x) dx ≈ h/2 [f(x₀) + 2f(x₁) + 2f(x₂) + ... + 2f(xₙ₋₁) + f(xₙ)]
+∫[a a b] f(x) dx ≈ h/2 [f(x₀) + 2f(x₁) + 2f(x₂) + ... + 2f(xₙ₋₁) + f(xₙ)]
 
-Where:
-• h = (b-a)/n (step size)
+Donde:
+• h = (b-a)/n (tamaño de paso)
 • xᵢ = a + ih
-• n = number of intervals
+• n = número de intervalos
 
-ALGORITHM STEPS:
----------------
-1. Divide interval [{a}, {b}] into {n} equal subintervals
-2. Calculate step size: h = (b-a)/{n}
-3. Evaluate function at all points: x₀, x₁, ..., xₙ
-4. Apply trapezoidal formula
-5. Sum all trapezoid areas
+PASOS DEL ALGORITMO:
+--------------------
+1. Dividir intervalo [{a}, {b}] en {n} subintervalos iguales
+2. Calcular tamaño de paso: h = (b-a)/{n}
+3. Evaluar función en todos los puntos: x₀, x₁, ..., xₙ
+4. Aplicar fórmula del trapecio
+5. Sumar todas las áreas de trapecios
 
-GEOMETRIC INTERPRETATION:
--------------------------
-• Each subinterval forms a trapezoid
-• Area of trapezoid = h × (f(xᵢ) + f(xᵢ₊₁))/2
-• Total area ≈ sum of all trapezoid areas
+INTERPRETACIÓN GEOMÉTRICA:
+--------------------------
+• Cada subintervalo forma un trapecio
+• Área del trapecio = h × (f(xᵢ) + f(xᵢ₊₁))/2
+• Área total ≈ suma de todas las áreas de trapecios
 
-ERROR ANALYSIS:
---------------
-• Error = -(b-a)h²f''(ξ)/12 for some ξ in [a,b]
-• Error decreases as h² (quadratic convergence)
-• More intervals = smaller error
-• Works best for smooth functions
+ANÁLISIS DE ERROR:
+------------------
+• Error = -(b-a)h²f''(ξ)/12 para algún ξ en [a,b]
+• El error disminuye como h² (convergencia cuadrática)
+• Más intervalos = error más pequeño
+• Funciona mejor para funciones suaves
 
-ADVANTAGES:
------------
-• Simple to implement
-• Always converges for continuous functions
-• Easy to understand geometrically
-• Good for smooth functions
-• Can be easily extended to composite rules
+VENTAJAS:
+---------
+• Simple de implementar
+• Siempre converge para funciones continuas
+• Fácil de entender geométricamente
+• Bueno para funciones suaves
+• Se puede extender fácilmente a reglas compuestas
 
-DISADVANTAGES:
---------------
-• Less accurate than higher-order methods
-• Requires many intervals for high accuracy
-• Error can be large for oscillatory functions
-• Not suitable for functions with discontinuities
+DESVENTAJAS:
+------------
+• Menos preciso que métodos de orden superior
+• Requiere muchos intervalos para alta precisión
+• El error puede ser grande para funciones oscilatorias
+• No es adecuado para funciones con discontinuidades
 
-CONVERGENCE RATE:
------------------
-• O(h²) - quadratic convergence
-• Doubling intervals reduces error by factor of 4
-• Good balance between accuracy and simplicity
+TASA DE CONVERGENCIA:
+---------------------
+• O(h²) - convergencia cuadrática
+• Duplicar intervalos reduce el error por factor de 4
+• Buen balance entre precisión y simplicidad
 
-APPLICATIONS:
+APLICACIONES:
 -------------
-• Basic numerical integration
-• When function is smooth and continuous
-• Quick approximations
-• Educational purposes
-• Foundation for more advanced methods
+• Integración numérica básica
+• Cuando la función es suave y continua
+• Aproximaciones rápidas
+• Propósitos educativos
+• Base para métodos más avanzados
 
-TIPS FOR SUCCESS:
-----------------
-• Use more intervals for better accuracy
-• Works well for smooth, continuous functions
-• Consider Simpson's rule for better accuracy
-• Monitor error estimates
-• Use adaptive methods for varying function behavior"""
+CONSEJOS PARA EL ÉXITO:
+-----------------------
+• Usar más intervalos para mejor precisión
+• Funciona bien para funciones suaves y continuas
+• Considerar la regla de Simpson para mejor precisión
+• Monitorear estimaciones de error
+• Usar métodos adaptativos para comportamiento variable de función"""
     
     def plot_function_and_iterations(self, ax, function: str, iterations: List[Dict], result: Dict) -> None:
         """Plot the function and trapezoidal approximation"""

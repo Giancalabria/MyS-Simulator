@@ -92,100 +92,100 @@ class NewtonRaphsonMethod(BaseMethod):
         tolerance = tolerance or "1e-8"
         max_iter = max_iter or "50"
         
-        return f"""NEWTON-RAPHSON METHOD EXPLANATION
+        return f"""EXPLICACIÓN DEL MÉTODO DE NEWTON-RAPHSON
 
-CURRENT EQUATION: f(x) = 0 where f(x) = {function}
+ECUACIÓN ACTUAL: f(x) = 0 donde f(x) = {function}
 
-THEORY:
+TEORÍA:
 --------
-The Newton-Raphson method finds roots of equations by using the tangent line approximation.
-It's one of the most powerful and widely used root-finding algorithms.
+El método de Newton-Raphson encuentra raíces de ecuaciones usando la aproximación de la línea tangente.
+Es uno de los algoritmos de búsqueda de raíces más poderosos y ampliamente utilizados.
 
-FORMULA:
+FÓRMULA:
 --------
 x_{{n+1}} = x_n - f(x_n)/f'(x_n)
 
-Where:
-• x_n is the current approximation
-• f(x_n) is the function value at x_n
-• f'(x_n) is the derivative at x_n
-• x_{{n+1}} is the next approximation
+Donde:
+• x_n es la aproximación actual
+• f(x_n) es el valor de la función en x_n
+• f'(x_n) es la derivada en x_n
+• x_{{n+1}} es la siguiente aproximación
 
-ALGORITHM STEPS:
----------------
-1. Start with initial guess: x₀ = {x0}
-2. For n = 0, 1, 2, ... until convergence:
-   • Calculate f(x_n) and f'(x_n)
-   • Apply Newton-Raphson formula
-   • Check if |x_{{n+1}} - x_n| < tolerance = {tolerance}
-   • If converged, x_{{n+1}} is the root
-   • Otherwise, set x_n = x_{{n+1}} and continue
+PASOS DEL ALGORITMO:
+--------------------
+1. Comenzar con estimación inicial: x₀ = {x0}
+2. Para n = 0, 1, 2, ... hasta convergencia:
+   • Calcular f(x_n) y f'(x_n)
+   • Aplicar la fórmula de Newton-Raphson
+   • Verificar si |x_{{n+1}} - x_n| < tolerancia = {tolerance}
+   • Si convergió, x_{{n+1}} es la raíz
+   • De lo contrario, establecer x_n = x_{{n+1}} y continuar
 
-GEOMETRIC INTERPRETATION:
--------------------------
-• Draw tangent line at current point (x_n, f(x_n))
-• Find where tangent line crosses x-axis
-• This intersection is the next approximation
-• Repeat until convergence
+INTERPRETACIÓN GEOMÉTRICA:
+--------------------------
+• Dibujar línea tangente en el punto actual (x_n, f(x_n))
+• Encontrar donde la línea tangente cruza el eje x
+• Esta intersección es la siguiente aproximación
+• Repetir hasta convergencia
 
-CONVERGENCE CONDITIONS:
------------------------
-• f'(x) ≠ 0 near the root
-• f''(x) is continuous near the root
-• Initial guess is close enough to the root
-• Function is well-behaved
+CONDICIONES DE CONVERGENCIA:
+----------------------------
+• f'(x) ≠ 0 cerca de la raíz
+• f''(x) es continua cerca de la raíz
+• La estimación inicial está suficientemente cerca de la raíz
+• La función está bien comportada
 
-ADVANTAGES:
------------
-• Quadratic convergence (very fast)
-• Simple to implement
-• Works for most functions
-• Self-correcting
-• Can find complex roots
+VENTAJAS:
+---------
+• Convergencia cuadrática (muy rápida)
+• Simple de implementar
+• Funciona para la mayoría de funciones
+• Auto-corrector
+• Puede encontrar raíces complejas
 
-DISADVANTAGES:
---------------
-• Requires derivative calculation
-• May not converge if f'(x) ≈ 0
-• Sensitive to initial guess
-• Can diverge for poor starting points
-• May cycle or oscillate
+DESVENTAJAS:
+------------
+• Requiere cálculo de derivadas
+• Puede no converger si f'(x) ≈ 0
+• Sensible a la estimación inicial
+• Puede divergir para puntos de partida pobres
+• Puede ciclar u oscilar
 
-CONVERGENCE RATE:
------------------
-• Quadratic convergence: |x_{{n+1}} - x*| ≤ C|x_n - x*|²
-• Very fast when it converges
-• Error roughly squares each iteration
-• Much faster than linear methods
+TASA DE CONVERGENCIA:
+---------------------
+• Convergencia cuadrática: |x_{{n+1}} - x*| ≤ C|x_n - x*|²
+• Muy rápida cuando converge
+• El error se cuadra aproximadamente en cada iteración
+• Mucho más rápida que los métodos lineales
 
-ERROR ANALYSIS:
---------------
-• Absolute error: |x_{{n+1}} - x_n|
-• Relative error: |x_{{n+1}} - x_n|/|x_{{n+1}}|
-• Stopping criteria: error < tolerance
+ANÁLISIS DE ERROR:
+------------------
+• Error absoluto: |x_{{n+1}} - x_n|
+• Error relativo: |x_{{n+1}} - x_n|/|x_{{n+1}}|
+• Criterios de parada: error < tolerancia
 
-COMMON PITFALLS:
+TRAMPAS COMUNES:
 ----------------
-• Division by zero when f'(x) = 0
-• Poor initial guess leads to divergence
-• Multiple roots can cause confusion
-• Oscillatory behavior near critical points
+• División por cero cuando f'(x) = 0
+• Estimación inicial pobre lleva a divergencia
+• Múltiples raíces pueden causar confusión
+• Comportamiento oscilatorio cerca de puntos críticos
 
-APPLICATIONS:
+APLICACIONES:
 -------------
-• Finding roots of polynomials
-• Solving nonlinear equations
-• Optimization problems
-• Numerical analysis
-• Engineering calculations
+• Encontrar raíces de polinomios
+• Resolver ecuaciones no lineales
+• Problemas de optimización
+• Análisis numérico
+• Cálculos de ingeniería
 
-TIPS FOR SUCCESS:
-----------------
-• Choose initial guess close to expected root
-• Check that f'(x) ≠ 0 near the root
-• Monitor convergence behavior
-• Use bracketing methods as backup
-• Consider modified Newton methods for difficult cases"""
+CONSEJOS PARA EL ÉXITO:
+-----------------------
+• Elegir estimación inicial cerca de la raíz esperada
+• Verificar que f'(x) ≠ 0 cerca de la raíz
+• Monitorear el comportamiento de convergencia
+• Usar métodos de acotamiento como respaldo
+• Considerar métodos de Newton modificados para casos difíciles"""
     
     def plot_function_and_iterations(self, ax, function: str, iterations: List[Dict], result: Dict) -> None:
         """Plot the function and Newton-Raphson iterations"""

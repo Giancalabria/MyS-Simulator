@@ -81,38 +81,38 @@ class FixedPointMethod(BaseMethod):
         """Get method explanation text"""
         try:
             if not function:
-                return """FIXED POINT METHOD EXPLANATION
+                return """EXPLICACIÓN DEL MÉTODO DE PUNTO FIJO
 
-The Fixed Point Method is a numerical technique for finding roots of equations of the form x = g(x).
+El Método de Punto Fijo es una técnica numérica para encontrar raíces de ecuaciones de la forma x = g(x).
 
-THEORY:
+TEORÍA:
 --------
-Given an equation f(x) = 0, we can rewrite it as x = g(x) where g(x) = x - f(x)/f'(x) or other transformations.
+Dada una ecuación f(x) = 0, podemos reescribirla como x = g(x) donde g(x) = x - f(x)/f'(x) u otras transformaciones.
 
-The method works by:
-1. Starting with an initial guess x₀
-2. Computing x₁ = g(x₀), x₂ = g(x₁), etc.
-3. The sequence {x_n} converges to the fixed point if |g'(x)| < 1
+El método funciona:
+1. Comenzando con una estimación inicial x₀
+2. Calculando x₁ = g(x₀), x₂ = g(x₁), etc.
+3. La secuencia {x_n} converge al punto fijo si |g'(x)| < 1
 
-CONVERGENCE CONDITIONS:
------------------------
-• |g'(x)| < 1 in a neighborhood of the root
-• The function g(x) must be continuous
-• The initial guess should be close to the root
+CONDICIONES DE CONVERGENCIA:
+----------------------------
+• |g'(x)| < 1 en una vecindad de la raíz
+• La función g(x) debe ser continua
+• La estimación inicial debe estar cerca de la raíz
 
-ADVANTAGES:
------------
-• Simple to implement
-• Often converges quickly when conditions are met
-• Can be used to transform difficult equations
+VENTAJAS:
+---------
+• Simple de implementar
+• A menudo converge rápidamente cuando se cumplen las condiciones
+• Puede usarse para transformar ecuaciones difíciles
 
-DISADVANTAGES:
---------------
-• May not converge if |g'(x)| ≥ 1
-• Convergence depends heavily on the choice of g(x)
-• Can be slow or diverge with poor initial guesses
+DESVENTAJAS:
+------------
+• Puede no converger si |g'(x)| ≥ 1
+• La convergencia depende mucho de la elección de g(x)
+• Puede ser lento o divergir con malas estimaciones iniciales
 
-Enter a function to see specific details for your equation."""
+Ingresa una función para ver detalles específicos de tu ecuación."""
             else:
                 # Handle None values and provide defaults
                 function = function or "g(x)"
@@ -120,59 +120,59 @@ Enter a function to see specific details for your equation."""
                 tolerance = tolerance or "1e-8"
                 max_iter = max_iter or "50"
                 
-                return f"""FIXED POINT METHOD EXPLANATION
+                return f"""EXPLICACIÓN DEL MÉTODO DE PUNTO FIJO
 
-CURRENT EQUATION: x = g(x) where g(x) = {function}
+ECUACIÓN ACTUAL: x = g(x) donde g(x) = {function}
 
-THEORY:
+TEORÍA:
 --------
-The Fixed Point Method finds roots by iterating x_{{n+1}} = g(x_n) starting from x₀ = {x0}.
+El Método de Punto Fijo encuentra raíces iterando x_{{n+1}} = g(x_n) comenzando desde x₀ = {x0}.
 
-For your equation: x = {function}
-• We seek a value x* such that x* = {function.replace('x', 'x*')}
-• This means f(x*) = x* - {function.replace('x', 'x*')} = 0
+Para tu ecuación: x = {function}
+• Buscamos un valor x* tal que x* = {function.replace('x', 'x*')}
+• Esto significa f(x*) = x* - {function.replace('x', 'x*')} = 0
 
-ALGORITHM STEPS:
----------------
-1. Start with initial guess: x₀ = {x0}
-2. For n = 0, 1, 2, ... until convergence:
-   • Compute x_{{n+1}} = g(x_n) = {function.replace('x', 'x_n')}
-   • Check if |x_{{n+1}} - x_n| < tolerance = {tolerance}
-   • If converged, x_{{n+1}} is the root
-   • Otherwise, set x_n = x_{{n+1}} and continue
-
-CONVERGENCE ANALYSIS:
+PASOS DEL ALGORITMO:
 --------------------
-The method converges if |g'(x)| < 1 near the root.
+1. Comenzar con estimación inicial: x₀ = {x0}
+2. Para n = 0, 1, 2, ... hasta convergencia:
+   • Calcular x_{{n+1}} = g(x_n) = {function.replace('x', 'x_n')}
+   • Verificar si |x_{{n+1}} - x_n| < tolerancia = {tolerance}
+   • Si convergió, x_{{n+1}} es la raíz
+   • De lo contrario, establecer x_n = x_{{n+1}} y continuar
 
-For g(x) = {function}:
-• g'(x) = {self.get_derivative_text(function)}
-• Check if |g'(x)| < 1 in the neighborhood of your initial guess
-
-CONVERGENCE RATE:
------------------
-• Linear convergence: |x_{{n+1}} - x*| ≤ L|x_n - x*| where L = |g'(x*)|
-• If L < 1, the method converges
-• Smaller L means faster convergence
-
-STOPPING CRITERIA:
-------------------
-• Absolute error: |x_{{n+1}} - x_n| < {tolerance}
-• Relative error: |x_{{n+1}} - x_n|/|x_{{n+1}}| < {tolerance}
-• Maximum iterations: {max_iter}
-
-INTERPRETATION OF RESULTS:
+ANÁLISIS DE CONVERGENCIA:
 -------------------------
-• If the method converges: You've found a root of f(x) = x - g(x) = 0
-• If it diverges: Try a different transformation or initial guess
-• Check the convergence condition |g'(x)| < 1
+El método converge si |g'(x)| < 1 cerca de la raíz.
 
-TIPS FOR SUCCESS:
-----------------
-• Choose g(x) such that |g'(x)| < 1 near the root
-• Start with a good initial guess close to the expected root
-• Consider different transformations if convergence is slow
-• Monitor the error reduction in the iterations table"""
+Para g(x) = {function}:
+• g'(x) = {self.get_derivative_text(function)}
+• Verificar si |g'(x)| < 1 en la vecindad de tu estimación inicial
+
+TASA DE CONVERGENCIA:
+---------------------
+• Convergencia lineal: |x_{{n+1}} - x*| ≤ L|x_n - x*| donde L = |g'(x*)|
+• Si L < 1, el método converge
+• L más pequeño significa convergencia más rápida
+
+CRITERIOS DE PARADA:
+--------------------
+• Error absoluto: |x_{{n+1}} - x_n| < {tolerance}
+• Error relativo: |x_{{n+1}} - x_n|/|x_{{n+1}}| < {tolerance}
+• Máximo de iteraciones: {max_iter}
+
+INTERPRETACIÓN DE RESULTADOS:
+------------------------------
+• Si el método converge: Has encontrado una raíz de f(x) = x - g(x) = 0
+• Si diverge: Prueba una transformación diferente o estimación inicial
+• Verificar la condición de convergencia |g'(x)| < 1
+
+CONSEJOS PARA EL ÉXITO:
+-----------------------
+• Elegir g(x) tal que |g'(x)| < 1 cerca de la raíz
+• Comenzar con una buena estimación inicial cerca de la raíz esperada
+• Considerar transformaciones diferentes si la convergencia es lenta
+• Monitorear la reducción del error en la tabla de iteraciones"""
         except Exception as e:
             return f"Error generating explanation: {str(e)}"
     

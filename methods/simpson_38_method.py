@@ -95,91 +95,91 @@ class Simpson38Method(BaseMethod):
         b = b or "1"
         n = n or "9"
         
-        return f"""SIMPSON'S 3/8 RULE EXPLANATION
+        return f"""EXPLICACIÓN DE LA REGLA DE SIMPSON 3/8
 
-CURRENT INTEGRAL: ∫[{a} to {b}] {function} dx
+INTEGRAL ACTUAL: ∫[{a} a {b}] {function} dx
 
-THEORY:
+TEORÍA:
 --------
-Simpson's 3/8 Rule approximates the definite integral by fitting cubic polynomials to groups of
-four consecutive points and integrating these cubics. It's more accurate than Simpson's 1/3 Rule.
+La Regla de Simpson 3/8 aproxima la integral definida ajustando polinomios cúbicos a grupos de
+cuatro puntos consecutivos e integrando estos cúbicos. Es más precisa que la Regla de Simpson 1/3.
 
-FORMULA:
+FÓRMULA:
 --------
-∫[a to b] f(x) dx ≈ 3h/8 [f(x₀) + 3f(x₁) + 3f(x₂) + 2f(x₃) + 3f(x₄) + 3f(x₅) + 2f(x₆) + ... + f(xₙ)]
+∫[a a b] f(x) dx ≈ 3h/8 [f(x₀) + 3f(x₁) + 3f(x₂) + 2f(x₃) + 3f(x₄) + 3f(x₅) + 2f(x₆) + ... + f(xₙ)]
 
-Where:
-• h = (b-a)/n (step size)
+Donde:
+• h = (b-a)/n (tamaño de paso)
 • xᵢ = a + ih
-• n must be divisible by 3
-• Weights: 1, 3, 3, 2, 3, 3, 2, ..., 3, 3, 2, 1
+• n debe ser divisible por 3
+• Pesos: 1, 3, 3, 2, 3, 3, 2, ..., 3, 3, 2, 1
 
-ALGORITHM STEPS:
----------------
-1. Ensure n is divisible by 3
-2. Divide interval [{a}, {b}] into {n} equal subintervals
-3. Calculate step size: h = (b-a)/{n}
-4. Evaluate function at all points: x₀, x₁, ..., xₙ
-5. Apply Simpson's 3/8 formula with cubic weights
-6. Sum all cubic segment areas
+PASOS DEL ALGORITMO:
+--------------------
+1. Asegurar que n sea divisible por 3
+2. Dividir intervalo [{a}, {b}] en {n} subintervalos iguales
+3. Calcular tamaño de paso: h = (b-a)/{n}
+4. Evaluar función en todos los puntos: x₀, x₁, ..., xₙ
+5. Aplicar fórmula de Simpson 3/8 con pesos cúbicos
+6. Sumar todas las áreas de segmentos cúbicos
 
-GEOMETRIC INTERPRETATION:
--------------------------
-• Each group of three subintervals forms a cubic segment
-• Fits cubic polynomial through four consecutive points
-• Integrates the cubic exactly
-• More accurate than parabolic approximation
+INTERPRETACIÓN GEOMÉTRICA:
+--------------------------
+• Cada grupo de tres subintervalos forma un segmento cúbico
+• Ajusta polinomio cúbico a través de cuatro puntos consecutivos
+• Integra el cúbico exactamente
+• Más preciso que la aproximación parabólica
 
-ERROR ANALYSIS:
---------------
-• Error = -(b-a)h⁴f⁽⁴⁾(ξ)/80 for some ξ in [a,b]
-• Error decreases as h⁴ (fourth-order convergence)
-• More accurate than Simpson's 1/3 Rule
-• Works best for smooth functions
+ANÁLISIS DE ERROR:
+------------------
+• Error = -(b-a)h⁴f⁽⁴⁾(ξ)/80 para algún ξ en [a,b]
+• El error disminuye como h⁴ (convergencia de cuarto orden)
+• Más preciso que la Regla de Simpson 1/3
+• Funciona mejor para funciones suaves
 
-ADVANTAGES:
------------
-• Higher accuracy than Simpson's 1/3
-• Fourth-order convergence
-• Good for smooth functions
-• Can handle more complex behavior
-• Excellent for cubic polynomials
+VENTAJAS:
+---------
+• Mayor precisión que Simpson 1/3
+• Convergencia de cuarto orden
+• Bueno para funciones suaves
+• Puede manejar comportamiento más complejo
+• Excelente para polinomios cúbicos
 
-DISADVANTAGES:
---------------
-• Requires n divisible by 3
-• More complex than Simpson's 1/3
-• Can be less stable for high-order derivatives
-• Not suitable for functions with discontinuities
+DESVENTAJAS:
+------------
+• Requiere n divisible por 3
+• Más complejo que Simpson 1/3
+• Puede ser menos estable para derivadas de alto orden
+• No es adecuado para funciones con discontinuidades
 
-CONVERGENCE RATE:
------------------
-• O(h⁴) - fourth-order convergence
-• Doubling intervals reduces error by factor of 16
-• Same as Simpson's 1/3 but with better constant
+TASA DE CONVERGENCIA:
+---------------------
+• O(h⁴) - convergencia de cuarto orden
+• Duplicar intervalos reduce el error por factor de 16
+• Igual que Simpson 1/3 pero con mejor constante
 
-COMPARISON WITH OTHER METHODS:
------------------------------
-• More accurate than Simpson's 1/3 Rule
-• Less accurate than Boole's Rule
-• Good compromise between accuracy and complexity
-• Better for functions with cubic behavior
+COMPARACIÓN CON OTROS MÉTODOS:
+------------------------------
+• Más preciso que la Regla de Simpson 1/3
+• Menos preciso que la Regla de Boole
+• Buen compromiso entre precisión y complejidad
+• Mejor para funciones con comportamiento cúbico
 
-APPLICATIONS:
+APLICACIONES:
 -------------
-• High-accuracy numerical integration
-• Smooth, continuous functions
-• Engineering precision calculations
-• Scientific computing
-• When maximum accuracy is needed
+• Integración numérica de alta precisión
+• Funciones suaves y continuas
+• Cálculos de precisión de ingeniería
+• Computación científica
+• Cuando se necesita máxima precisión
 
-TIPS FOR SUCCESS:
-----------------
-• Always use n divisible by 3
-• Works best for smooth functions
-• Consider Boole's Rule for even higher accuracy
-• Monitor error estimates
-• Use adaptive methods for varying behavior"""
+CONSEJOS PARA EL ÉXITO:
+-----------------------
+• Siempre usar n divisible por 3
+• Funciona mejor para funciones suaves
+• Considerar la Regla de Boole para aún mayor precisión
+• Monitorear estimaciones de error
+• Usar métodos adaptativos para comportamiento variable"""
     
     def plot_function_and_iterations(self, ax, function: str, iterations: List[Dict], result: Dict) -> None:
         """Plot the function and Simpson's 3/8 approximation"""

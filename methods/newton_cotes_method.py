@@ -117,25 +117,25 @@ class NewtonCotesMethod(BaseMethod):
         n = n or "5"
         method = method or "closed"
         
-        return f"""NEWTON-COTES METHOD EXPLANATION
+        return f"""EXPLICACIÓN DEL MÉTODO DE NEWTON-COTES
 
-CURRENT INTEGRAL: ∫[{a} to {b}] {function} dx
+INTEGRAL ACTUAL: ∫[{a} a {b}] {function} dx
 
-THEORY:
+TEORÍA:
 --------
-Newton-Cotes methods approximate definite integrals by replacing the integrand with
-a polynomial that interpolates the function at equally spaced points, then integrating
-the polynomial exactly.
+Los métodos de Newton-Cotes aproximan integrales definidas reemplazando el integrando con
+un polinomio que interpola la función en puntos igualmente espaciados, luego integrando
+el polinomio exactamente.
 
-FORMULA:
+FÓRMULA:
 --------
-∫[a to b] f(x) dx ≈ h ∑ᵢ wᵢ f(xᵢ)
+∫[a a b] f(x) dx ≈ h ∑ᵢ wᵢ f(xᵢ)
 
-Where:
-• h = (b-a)/n (step size)
-• wᵢ are the Newton-Cotes weights
-• xᵢ are the interpolation points
-• n is the degree of the polynomial
+Donde:
+• h = (b-a)/n (tamaño de paso)
+• wᵢ son los pesos de Newton-Cotes
+• xᵢ son los puntos de interpolación
+• n es el grado del polinomio
 
 COMMON NEWTON-COTES FORMULAS:
 -----------------------------

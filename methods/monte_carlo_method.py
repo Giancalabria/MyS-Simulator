@@ -96,77 +96,77 @@ class MonteCarloMethod(BaseMethod):
         n_samples = n_samples or "1000"
         method = method or "hit_or_miss"
         
-        return f"""MONTE CARLO INTEGRATION EXPLANATION
+        return f"""EXPLICACIÓN DE LA INTEGRACIÓN MONTE CARLO
 
-CURRENT INTEGRAL: ∫[{a} to {b}] {function} dx
+INTEGRAL ACTUAL: ∫[{a} a {b}] {function} dx
 
-THEORY:
+TEORÍA:
 --------
-Monte Carlo integration estimates the value of definite integrals using random sampling.
-Instead of using deterministic methods, it uses random numbers to approximate the integral.
+La integración Monte Carlo estima el valor de integrales definidas usando muestreo aleatorio.
+En lugar de usar métodos determinísticos, usa números aleatorios para aproximar la integral.
 
-METHODS:
+MÉTODOS:
 --------
-1. HIT-OR-MISS METHOD:
-   • Generates random points in a rectangle containing the function
-   • Counts points that fall under the curve
-   • Integral ≈ (Rectangle Area) × (Hits / Total Points)
+1. MÉTODO DE ACIERTO O FALLO:
+   • Genera puntos aleatorios en un rectángulo que contiene la función
+   • Cuenta puntos que caen bajo la curva
+   • Integral ≈ (Área del Rectángulo) × (Aciertos / Total de Puntos)
 
-2. AVERAGE VALUE METHOD:
-   • Samples random points from the integration interval
-   • Calculates function values at these points
-   • Integral ≈ (b-a) × Average(f(x))
+2. MÉTODO DE VALOR PROMEDIO:
+   • Muestrea puntos aleatorios del intervalo de integración
+   • Calcula valores de función en estos puntos
+   • Integral ≈ (b-a) × Promedio(f(x))
 
-ALGORITHM STEPS:
----------------
-1. Define integration interval: [{a}, {b}]
-2. Generate {n_samples} random samples
-3. Evaluate function at sample points
-4. Apply chosen method to estimate integral
-5. Calculate error estimate
+PASOS DEL ALGORITMO:
+--------------------
+1. Definir intervalo de integración: [{a}, {b}]
+2. Generar {n_samples} muestras aleatorias
+3. Evaluar función en puntos de muestra
+4. Aplicar método elegido para estimar integral
+5. Calcular estimación de error
 
-CONVERGENCE:
-------------
-• Error decreases as O(1/√N) where N is number of samples
-• More samples = better accuracy
-• Independent of function complexity
-• Works well for high-dimensional integrals
-
-ADVANTAGES:
------------
-• Simple to implement
-• Works for any integrable function
-• Naturally parallelizable
-• Handles complex domains easily
-• No need for derivatives
-
-DISADVANTAGES:
---------------
-• Slow convergence rate
-• Requires many samples for high accuracy
-• Results are probabilistic
-• Can be computationally expensive
-
-ERROR ESTIMATION:
-----------------
-• Hit-or-miss: σ = (b-a)(f_max-f_min)√(hits×(N-hits))/N
-• Average value: σ = (b-a)σ_f/√N
-• Confidence improves with √N
-
-APPLICATIONS:
+CONVERGENCIA:
 -------------
-• High-dimensional integrals
-• Complex integration domains
-• Functions with discontinuities
-• Physics simulations
-• Financial mathematics
+• El error disminuye como O(1/√N) donde N es el número de muestras
+• Más muestras = mejor precisión
+• Independiente de la complejidad de la función
+• Funciona bien para integrales de alta dimensión
 
-TIPS FOR SUCCESS:
-----------------
-• Use more samples for better accuracy
-• Hit-or-miss works well for bounded functions
-• Average value is more efficient for smooth functions
-• Consider variance reduction techniques"""
+VENTAJAS:
+---------
+• Simple de implementar
+• Funciona para cualquier función integrable
+• Naturalmente paralelizable
+• Maneja dominios complejos fácilmente
+• No necesita derivadas
+
+DESVENTAJAS:
+------------
+• Tasa de convergencia lenta
+• Requiere muchas muestras para alta precisión
+• Los resultados son probabilísticos
+• Puede ser computacionalmente costoso
+
+ESTIMACIÓN DE ERROR:
+--------------------
+• Acierto o fallo: σ = (b-a)(f_max-f_min)√(aciertos×(N-aciertos))/N
+• Valor promedio: σ = (b-a)σ_f/√N
+• La confianza mejora con √N
+
+APLICACIONES:
+-------------
+• Integrales de alta dimensión
+• Dominios de integración complejos
+• Funciones con discontinuidades
+• Simulaciones de física
+• Matemáticas financieras
+
+CONSEJOS PARA EL ÉXITO:
+-----------------------
+• Usar más muestras para mejor precisión
+• Acierto o fallo funciona bien para funciones acotadas
+• Valor promedio es más eficiente para funciones suaves
+• Considerar técnicas de reducción de varianza"""
     
     def plot_function_and_iterations(self, ax, function: str, iterations: List[Dict], result: Dict) -> None:
         """Plot the function and Monte Carlo samples"""

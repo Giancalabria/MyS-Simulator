@@ -95,91 +95,91 @@ class Simpson13Method(BaseMethod):
         b = b or "1"
         n = n or "10"
         
-        return f"""SIMPSON'S 1/3 RULE EXPLANATION
+        return f"""EXPLICACIÓN DE LA REGLA DE SIMPSON 1/3
 
-CURRENT INTEGRAL: ∫[{a} to {b}] {function} dx
+INTEGRAL ACTUAL: ∫[{a} a {b}] {function} dx
 
-THEORY:
+TEORÍA:
 --------
-Simpson's 1/3 Rule approximates the definite integral by fitting parabolas to groups of three
-consecutive points and integrating these parabolas. It's more accurate than the Trapezoidal Rule.
+La Regla de Simpson 1/3 aproxima la integral definida ajustando parábolas a grupos de tres
+puntos consecutivos e integrando estas parábolas. Es más precisa que la Regla del Trapecio.
 
-FORMULA:
+FÓRMULA:
 --------
-∫[a to b] f(x) dx ≈ h/3 [f(x₀) + 4f(x₁) + 2f(x₂) + 4f(x₃) + ... + 4f(xₙ₋₁) + f(xₙ)]
+∫[a a b] f(x) dx ≈ h/3 [f(x₀) + 4f(x₁) + 2f(x₂) + 4f(x₃) + ... + 4f(xₙ₋₁) + f(xₙ)]
 
-Where:
-• h = (b-a)/n (step size)
+Donde:
+• h = (b-a)/n (tamaño de paso)
 • xᵢ = a + ih
-• n must be even
-• Weights: 1, 4, 2, 4, 2, ..., 4, 1
+• n debe ser par
+• Pesos: 1, 4, 2, 4, 2, ..., 4, 1
 
-ALGORITHM STEPS:
----------------
-1. Ensure n is even (add 1 if odd)
-2. Divide interval [{a}, {b}] into {n} equal subintervals
-3. Calculate step size: h = (b-a)/{n}
-4. Evaluate function at all points: x₀, x₁, ..., xₙ
-5. Apply Simpson's 1/3 formula with alternating weights
-6. Sum all parabolic segment areas
+PASOS DEL ALGORITMO:
+--------------------
+1. Asegurar que n sea par (agregar 1 si es impar)
+2. Dividir intervalo [{a}, {b}] en {n} subintervalos iguales
+3. Calcular tamaño de paso: h = (b-a)/{n}
+4. Evaluar función en todos los puntos: x₀, x₁, ..., xₙ
+5. Aplicar fórmula de Simpson 1/3 con pesos alternantes
+6. Sumar todas las áreas de segmentos parabólicos
 
-GEOMETRIC INTERPRETATION:
--------------------------
-• Each pair of subintervals forms a parabolic segment
-• Fits parabola through three consecutive points
-• Integrates the parabola exactly
-• More accurate than linear approximation
+INTERPRETACIÓN GEOMÉTRICA:
+--------------------------
+• Cada par de subintervalos forma un segmento parabólico
+• Ajusta parábola a través de tres puntos consecutivos
+• Integra la parábola exactamente
+• Más preciso que la aproximación lineal
 
-ERROR ANALYSIS:
---------------
-• Error = -(b-a)h⁴f⁽⁴⁾(ξ)/180 for some ξ in [a,b]
-• Error decreases as h⁴ (fourth-order convergence)
-• Much more accurate than Trapezoidal Rule
-• Works best for smooth functions
+ANÁLISIS DE ERROR:
+------------------
+• Error = -(b-a)h⁴f⁽⁴⁾(ξ)/180 para algún ξ en [a,b]
+• El error disminuye como h⁴ (convergencia de cuarto orden)
+• Mucho más preciso que la Regla del Trapecio
+• Funciona mejor para funciones suaves
 
-ADVANTAGES:
------------
-• High accuracy (fourth-order)
-• Efficient for smooth functions
-• Widely used in practice
-• Good balance of accuracy and simplicity
-• Excellent for polynomial functions
+VENTAJAS:
+---------
+• Alta precisión (cuarto orden)
+• Eficiente para funciones suaves
+• Ampliamente usado en la práctica
+• Buen balance entre precisión y simplicidad
+• Excelente para funciones polinómicas
 
-DISADVANTAGES:
---------------
-• Requires even number of intervals
-• Less accurate for oscillatory functions
-• Can be unstable for high-order derivatives
-• Not suitable for functions with discontinuities
+DESVENTAJAS:
+------------
+• Requiere número par de intervalos
+• Menos preciso para funciones oscilatorias
+• Puede ser inestable para derivadas de alto orden
+• No es adecuado para funciones con discontinuidades
 
-CONVERGENCE RATE:
------------------
-• O(h⁴) - fourth-order convergence
-• Doubling intervals reduces error by factor of 16
-• Much faster than Trapezoidal Rule
+TASA DE CONVERGENCIA:
+---------------------
+• O(h⁴) - convergencia de cuarto orden
+• Duplicar intervalos reduce el error por factor de 16
+• Mucho más rápido que la Regla del Trapecio
 
-COMPARISON WITH OTHER METHODS:
------------------------------
-• More accurate than Trapezoidal Rule
-• Less accurate than Simpson's 3/8 Rule
-• Good compromise between accuracy and simplicity
-• Most commonly used Simpson method
+COMPARACIÓN CON OTROS MÉTODOS:
+------------------------------
+• Más preciso que la Regla del Trapecio
+• Menos preciso que la Regla de Simpson 3/8
+• Buen compromiso entre precisión y simplicidad
+• Método de Simpson más comúnmente usado
 
-APPLICATIONS:
+APLICACIONES:
 -------------
-• General numerical integration
-• Smooth, continuous functions
-• Engineering calculations
-• Scientific computing
-• When high accuracy is needed
+• Integración numérica general
+• Funciones suaves y continuas
+• Cálculos de ingeniería
+• Computación científica
+• Cuando se necesita alta precisión
 
-TIPS FOR SUCCESS:
-----------------
-• Always use even number of intervals
-• Works best for smooth functions
-• Consider Simpson's 3/8 for better accuracy
-• Monitor error estimates
-• Use adaptive methods for varying behavior"""
+CONSEJOS PARA EL ÉXITO:
+-----------------------
+• Siempre usar número par de intervalos
+• Funciona mejor para funciones suaves
+• Considerar Simpson 3/8 para aún mejor precisión
+• Monitorear estimaciones de error
+• Usar métodos adaptativos para comportamiento variable de función"""
     
     def plot_function_and_iterations(self, ax, function: str, iterations: List[Dict], result: Dict) -> None:
         """Plot the function and Simpson's 1/3 approximation"""

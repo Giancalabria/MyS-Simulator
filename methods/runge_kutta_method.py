@@ -120,29 +120,29 @@ class RungeKuttaMethod(BaseMethod):
         n_steps = n_steps or "10"
         method = method or "rk4"
         
-        return f"""RUNGE-KUTTA METHOD EXPLANATION
+        return f"""EXPLICACIÓN DEL MÉTODO DE RUNGE-KUTTA
 
-CURRENT ODE: dy/dx = f(x,y) where f(x,y) = {function}
+EDO ACTUAL: dy/dx = f(x,y) donde f(x,y) = {function}
 
-THEORY:
+TEORÍA:
 --------
-Runge-Kutta methods are numerical techniques for solving ordinary differential equations.
-They use weighted averages of function values at different points to approximate the solution.
+Los métodos de Runge-Kutta son técnicas numéricas para resolver ecuaciones diferenciales ordinarias.
+Usan promedios ponderados de valores de función en diferentes puntos para aproximar la solución.
 
-INITIAL CONDITIONS:
-------------------
-• x₀ = {x0} (initial x value)
-• y₀ = {y0} (initial y value)
-• Step size: h = {h}
-• Number of steps: {n_steps}
+CONDICIONES INICIALES:
+----------------------
+• x₀ = {x0} (valor inicial de x)
+• y₀ = {y0} (valor inicial de y)
+• Tamaño de paso: h = {h}
+• Número de pasos: {n_steps}
 
-COMMON RUNGE-KUTTA METHODS:
----------------------------
+MÉTODOS COMUNES DE RUNGE-KUTTA:
+-------------------------------
 • RK1 (Euler): y_{{n+1}} = y_n + h·f(x_n, y_n)
-• RK2 (Midpoint): Uses slope at midpoint
-• RK4 (Classical): Uses 4 slopes with optimal weights
+• RK2 (Punto medio): Usa pendiente en el punto medio
+• RK4 (Clásico): Usa 4 pendientes con pesos óptimos
 
-RK4 FORMULA:
+FÓRMULA RK4:
 ------------
 k₁ = f(x_n, y_n)
 k₂ = f(x_n + h/2, y_n + h·k₁/2)
@@ -150,66 +150,66 @@ k₃ = f(x_n + h/2, y_n + h·k₂/2)
 k₄ = f(x_n + h, y_n + h·k₃)
 y_{{n+1}} = y_n + h/6·(k₁ + 2k₂ + 2k₃ + k₄)
 
-ALGORITHM STEPS:
----------------
-1. Start with initial conditions: x₀ = {x0}, y₀ = {y0}
-2. For n = 0, 1, 2, ..., {n_steps}-1:
-   • Calculate slopes k₁, k₂, k₃, k₄
-   • Compute weighted average
-   • Update: x_{{n+1}} = x_n + h, y_{{n+1}} = y_n + weighted_sum
-3. Return solution points (x_n, y_n)
+PASOS DEL ALGORITMO:
+--------------------
+1. Comenzar con condiciones iniciales: x₀ = {x0}, y₀ = {y0}
+2. Para n = 0, 1, 2, ..., {n_steps}-1:
+   • Calcular pendientes k₁, k₂, k₃, k₄
+   • Calcular promedio ponderado
+   • Actualizar: x_{{n+1}} = x_n + h, y_{{n+1}} = y_n + suma_ponderada
+3. Retornar puntos de solución (x_n, y_n)
 
-GEOMETRIC INTERPRETATION:
--------------------------
-• RK1: Uses slope at current point
-• RK2: Uses slope at midpoint
-• RK4: Uses 4 slopes with optimal weights
-• More slopes = better approximation
+INTERPRETACIÓN GEOMÉTRICA:
+--------------------------
+• RK1: Usa pendiente en el punto actual
+• RK2: Usa pendiente en el punto medio
+• RK4: Usa 4 pendientes con pesos óptimos
+• Más pendientes = mejor aproximación
 
-ERROR ANALYSIS:
---------------
-• RK1: O(h) - first order
-• RK2: O(h²) - second order  
-• RK4: O(h⁴) - fourth order
-• Smaller h = better accuracy
+ANÁLISIS DE ERROR:
+------------------
+• RK1: O(h) - primer orden
+• RK2: O(h²) - segundo orden  
+• RK4: O(h⁴) - cuarto orden
+• h más pequeño = mejor precisión
 
-ADVANTAGES:
------------
-• High accuracy (especially RK4)
-• Self-starting (no previous values needed)
-• Easy to implement
-• Good for most ODEs
-• Widely used in practice
+VENTAJAS:
+---------
+• Alta precisión (especialmente RK4)
+• Auto-iniciante (no necesita valores previos)
+• Fácil de implementar
+• Bueno para la mayoría de EDOs
+• Ampliamente usado en la práctica
 
-DISADVANTAGES:
---------------
-• Fixed step size (unless adaptive)
-• Can be unstable for stiff ODEs
-• Requires function evaluation
-• May need small steps for accuracy
+DESVENTAJAS:
+------------
+• Tamaño de paso fijo (a menos que sea adaptativo)
+• Puede ser inestable para EDOs rígidas
+• Requiere evaluación de función
+• Puede necesitar pasos pequeños para precisión
 
-STABILITY:
-----------
-• Conditionally stable
-• Stability depends on step size h
-• May require very small h for stiff problems
-• Consider adaptive methods for varying behavior
+ESTABILIDAD:
+------------
+• Condicionalmente estable
+• La estabilidad depende del tamaño de paso h
+• Puede requerir h muy pequeño para problemas rígidos
+• Considerar métodos adaptativos para comportamiento variable
 
-APPLICATIONS:
+APLICACIONES:
 -------------
-• Physics simulations
-• Engineering problems
-• Population dynamics
-• Chemical kinetics
-• Mechanical systems
+• Simulaciones de física
+• Problemas de ingeniería
+• Dinámica de poblaciones
+• Cinética química
+• Sistemas mecánicos
 
-TIPS FOR SUCCESS:
-----------------
-• Choose appropriate step size h
-• Use RK4 for most problems
-• Consider adaptive methods for efficiency
-• Monitor solution behavior
-• Check stability for stiff problems"""
+CONSEJOS PARA EL ÉXITO:
+-----------------------
+• Elegir tamaño de paso h apropiado
+• Usar RK4 para la mayoría de problemas
+• Considerar métodos adaptativos para eficiencia
+• Monitorear el comportamiento de la solución
+• Verificar estabilidad para problemas rígidos"""
     
     def plot_function_and_iterations(self, ax, function: str, iterations: List[Dict], result: Dict) -> None:
         """Plot the Runge-Kutta solution"""
