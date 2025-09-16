@@ -22,6 +22,7 @@ from methods.simpson_38_method import Simpson38Method
 from methods.newton_raphson_method import NewtonRaphsonMethod
 from methods.newton_cotes_method import NewtonCotesMethod
 from methods.runge_kutta_method import RungeKuttaMethod
+from methods.bisection_method import BisectionMethod
 
 class SimpleSimulator:
     def __init__(self, root):
@@ -33,6 +34,7 @@ class SimpleSimulator:
         # Initialize methods
         self.methods = {
             "Fixed Point Method": FixedPointMethod(),
+            "Bisection Method": BisectionMethod(),
             "Monte Carlo Integration": MonteCarloMethod(),
             "Trapezoidal Rule": TrapezoidalMethod(),
             "Simpson's 1/3 Rule": Simpson13Method(),
@@ -410,6 +412,8 @@ class SimpleSimulator:
             columns = ("Point", "x", "f(x)", "Weight", "Error", "Status")
         elif 'Newton-Raphson' in self.current_method:
             columns = ("Iter", "x_n", "f(x_n)", "f'(x_n)", "x_next", "Error")
+        elif 'Bisection' in self.current_method:
+            columns = ("Iter", "a_n", "b_n", "c_n", "f(c_n)", "Error")
         elif 'Runge-Kutta' in self.current_method:
             columns = ("Step", "x", "y", "k1", "k2", "k3", "k4")
         else:
@@ -449,6 +453,15 @@ class SimpleSimulator:
                     f"{iter_data['f_x_n']:.{decimals}f}",
                     f"{iter_data['f_prime_x_n']:.{decimals}f}",
                     f"{iter_data['x_next']:.{decimals}f}",
+                    f"{iter_data['abs_error']:.{decimals}e}"
+                )
+            elif 'Bisection' in self.current_method:
+                values = (
+                    iter_data['iteration'],
+                    f"{iter_data['a_n']:.{decimals}f}",
+                    f"{iter_data['b_n']:.{decimals}f}",
+                    f"{iter_data['c_n']:.{decimals}f}",
+                    f"{iter_data['f_c_n']:.{decimals}f}",
                     f"{iter_data['abs_error']:.{decimals}e}"
                 )
             elif 'Runge-Kutta' in self.current_method:
