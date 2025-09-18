@@ -15,6 +15,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from methods.fixed_point_method import FixedPointMethod
+from methods.fixed_point_aitken_method import FixedPointAitkenMethod
 from methods.monte_carlo_method import MonteCarloMethod
 from methods.trapezoidal_method import TrapezoidalMethod
 from methods.simpson_13_method import Simpson13Method
@@ -34,6 +35,7 @@ class SimpleSimulator:
         # Initialize methods
         self.methods = {
             "Fixed Point Method": FixedPointMethod(),
+            "Fixed Point + Aitken": FixedPointAitkenMethod(),
             "Bisection Method": BisectionMethod(),
             "Monte Carlo Integration": MonteCarloMethod(),
             "Trapezoidal Rule": TrapezoidalMethod(),
@@ -414,6 +416,8 @@ class SimpleSimulator:
             columns = ("Iter", "x_n", "f(x_n)", "f'(x_n)", "x_next", "Error")
         elif 'Bisection' in self.current_method:
             columns = ("Iter", "a_n", "b_n", "c_n", "f(c_n)", "Error")
+        elif 'Fixed Point + Aitken' in self.current_method:
+            columns = ("Iter", "x_n", "g(x_n)", "Aitken x", "Error", "Rel Error")
         elif 'Runge-Kutta' in self.current_method:
             columns = ("Step", "x", "y", "k1", "k2", "k3", "k4")
         else:
@@ -463,6 +467,17 @@ class SimpleSimulator:
                     f"{iter_data['c_n']:.{decimals}f}",
                     f"{iter_data['f_c_n']:.{decimals}f}",
                     f"{iter_data['abs_error']:.{decimals}e}"
+                )
+            elif 'Fixed Point + Aitken' in self.current_method:
+                aitken_val = iter_data.get('aitken_x')
+                aitken_str = f"{aitken_val:.{decimals}f}" if aitken_val is not None else "N/A"
+                values = (
+                    iter_data['iteration'],
+                    f"{iter_data['x_n']:.{decimals}f}",
+                    f"{iter_data['g_x_n']:.{decimals}f}",
+                    aitken_str,
+                    f"{iter_data['abs_error']:.{decimals}e}",
+                    f"{iter_data['rel_error']:.{decimals}e}"
                 )
             elif 'Runge-Kutta' in self.current_method:
                 # Handle None values for k2, k3, k4 (they are None for RK1 and RK2)

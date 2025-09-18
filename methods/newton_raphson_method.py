@@ -23,47 +23,74 @@ class NewtonRaphsonMethod(BaseMethod):
             # Get the function
             f_func = safe_eval_function(function)
             
-            # Calculate derivative numerically
+            # Calculate derivative numerically (using same method as working version)
             def f_prime(x, h=1e-6):
                 return (f_func(x + h) - f_func(x - h)) / (2 * h)
             
             # Initialize
             iterations = []
-            x_n = x0
+            x = x0
+            prev_x = None
+            oscillation_count = 0
             
             for i in range(max_iter):
                 # Calculate function value and derivative
-                f_x = f_func(x_n)
-                f_prime_x = f_prime(x_n)
+                fx = f_func(x)
+                dfx = f_prime(x)
                 
-                # Check for division by zero
-                if abs(f_prime_x) < 1e-12:
+                # Check for division by zero (using same threshold as working version)
+                if abs(dfx) < 1e-14:
                     raise ValueError("Derivative is zero or very close to zero")
                 
                 # Newton-Raphson formula: x_{n+1} = x_n - f(x_n)/f'(x_n)
-                x_next = x_n - f_x / f_prime_x
+                x_next = x - fx / dfx
                 
                 # Calculate errors
-                abs_error = abs(x_next - x_n)
+                abs_error = abs(x_next - x)
                 rel_error = abs_error / abs(x_next) if x_next != 0 else float('inf')
                 
                 # Store iteration data
                 iterations.append({
                     'iteration': i + 1,
-                    'x_n': x_n,
-                    'f_x_n': f_x,
-                    'f_prime_x_n': f_prime_x,
+                    'x_n': x,
+                    'f_x_n': fx,
+                    'f_prime_x_n': dfx,
                     'x_next': x_next,
                     'abs_error': abs_error,
                     'rel_error': rel_error
                 })
                 
-                # Check convergence
-                if abs_error < tolerance:
+                # Check convergence - either small change OR function value close to zero
+                fx_next = f_func(x_next)
+                if abs_error < tolerance or abs(fx_next) < tolerance:
+                    # Add final converged point to history (like working version)
+                    dfx_next = f_prime(x_next)
+                    iterations.append({
+                        'iteration': i + 2,
+                        'x_n': x_next,
+                        'f_x_n': fx_next,
+                        'f_prime_x_n': dfx_next,
+                        'x_next': x_next,
+                        'abs_error': 0.0,
+                        'rel_error': 0.0
+                    })
                     break
                 
+                # Check for divergence or oscillation
+                if prev_x is not None:
+                    if abs(x_next) > 1e10:  # Diverging to infinity
+                        break
+                    if abs(x_next - prev_x) < 1e-15:  # Oscillating between same values
+                        oscillation_count += 1
+                        if oscillation_count > 3:
+                            break
+                    else:
+                        oscillation_count = 0
+                
+                prev_x = x
+                
                 # Update for next iteration
-                x_n = x_next
+                x = x_next
             
             # Determine if converged
             converged = abs_error < tolerance if iterations else False
