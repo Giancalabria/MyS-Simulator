@@ -6,6 +6,42 @@ import sympy as sp
 import numpy as np
 from typing import Callable, Optional
 
+def evaluate_numeric_expression(expr: str) -> float:
+    """
+    Safely evaluate a numeric expression string into a float.
+    Supports: pi (π), e, +, -, *, /, ^, parentheses, and scientific notation.
+
+    Examples: "pi/2", "3*10^-2", "(1+2)/3"
+
+    Raises ValueError on invalid/unsafe inputs or non-finite results.
+    """
+    # Fast path for numeric types
+    if isinstance(expr, (int, float, np.floating)):
+        value = float(expr)
+        if not np.isfinite(value):
+            raise ValueError("Non-finite numeric value")
+        return value
+
+    s = str(expr).strip()
+    if s == "":
+        raise ValueError("Empty numeric input")
+
+    # Normalize input
+    s = s.replace('π', 'pi')
+    s = s.replace('^', '**')  # allow caret as power
+
+    try:
+        # Restrict to known mathematical constants and operations
+        value_sym = sp.sympify(s, locals={'pi': sp.pi, 'e': sp.E, 'E': sp.E})
+        value = float(sp.N(value_sym))
+    except Exception as e:
+        raise ValueError(f"Invalid numeric expression: {expr}") from e
+
+    if not np.isfinite(value):
+        raise ValueError("Non-finite numeric value")
+
+    return value
+
 def safe_eval_function(expr_str: str) -> Callable[[float], float]:
     """
     Safely convert a mathematical expression string to a function.

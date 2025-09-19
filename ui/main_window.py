@@ -24,6 +24,7 @@ from methods.newton_raphson_method import NewtonRaphsonMethod
 from methods.newton_cotes_method import NewtonCotesMethod
 from methods.runge_kutta_method import RungeKuttaMethod
 from methods.bisection_method import BisectionMethod
+from utils.math_utils import evaluate_numeric_expression
 
 class SimpleSimulator:
     def __init__(self, root):
@@ -298,11 +299,14 @@ class SimpleSimulator:
                     value = getattr(self, f"{field_name}_var").get()
                     # Convert mathematical constants
                     value = self.convert_math_constants(value)
-                    # Convert to appropriate type
+                    # Convert to appropriate type using safe numeric expression evaluator
                     if field_name in ['x0', 'y0', 'a', 'b', 'h', 'tolerance']:
-                        params[field_name] = float(value)
+                        params[field_name] = evaluate_numeric_expression(value)
                     elif field_name in ['n', 'n_samples', 'n_steps', 'max_iter']:
-                        params[field_name] = int(value)
+                        num_val = evaluate_numeric_expression(value)
+                        if abs(num_val - round(num_val)) > 1e-9:
+                            raise ValueError(f"{field['label']} must be an integer")
+                        params[field_name] = int(round(num_val))
                     else:
                         params[field_name] = value
             
